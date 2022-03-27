@@ -8,7 +8,7 @@ public class Client {
     public static void main(String[] args) {
         int registryPort = 2233;        
         try{
-            
+
             Registry registry = LocateRegistry.getRegistry(registryPort);
             Calculator calc = (Calculator) registry.lookup("CalculatorService");
 
@@ -16,6 +16,7 @@ public class Client {
             System.out.println(calc.sub(7,3));
             System.out.println(calc.mul(7,3));
             System.out.println(calc.div(7,3));
+            
         } catch (Exception e) {
             System.err.println("Client exception: " + e.toString());
             e.printStackTrace();

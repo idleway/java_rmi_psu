@@ -11,7 +11,7 @@ public class Server{
         int registryPort = 2233;
 
         try {
-            Calculator server = new CalculatorServiceImpl();
+            Calculator server = new CalculatorServiceAddImpl();
             Calculator stub = (Calculator) UnicastRemoteObject.exportObject((Calculator) server, 0);
 
             Registry registry = LocateRegistry.createRegistry(registryPort);
