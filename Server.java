@@ -14,7 +14,7 @@ public class Server{
             Calculator server = new CalculatorServiceImpl();
             Calculator stub = (Calculator) UnicastRemoteObject.exportObject((Calculator) server, 0);
 
-            Registry registry = LocateRegistry.createRegistry(port);
+            Registry registry = LocateRegistry.createRegistry(registryPort);
             registry.rebind("CalculatorService", stub);            
 
             System.err.println("Server ready");
