@@ -1,23 +1,18 @@
-package example.hello;
+package calculator;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
-public class Client {
-
-    private Client() {}
+public class Client {    
 
     public static void main(String[] args) {
+        int registryPort = 2233;
+        Registry registry = LocateRegistry.getRegistry(registryPort);
+        Calculator calc = (Calculator) registry.lookup("CalculatorService");
 
-        String host = (args.length < 1) ? null : args[0];
-        try {
-            Registry registry = LocateRegistry.getRegistry(host);
-            Hello stub = (Hello) registry.lookup("Hello");
-            String response = stub.sayHello();
-            System.out.println("response: " + response);
-        } catch (Exception e) {
-            System.err.println("Client exception: " + e.toString());
-            e.printStackTrace();
-        }
+        System.out.println(calc.add(7,3));
+        System.out.println(calc.sub(7,3));
+        System.out.println(calc.mul(7,3));
+        System.out.println(calc.div(7,3));    
     }
 }
