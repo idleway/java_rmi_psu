@@ -11,11 +11,21 @@ public class Server{
         int registryPort = 2233;
 
         try {
-            Calculator server = new CalculatorServiceAddImpl();
-            Calculator stub = (Calculator) UnicastRemoteObject.exportObject((Calculator) server, 0);
+            Calculator calcAdd = new CalculatorServiceAddImpl();
+            Calculator calcSub = new CalculatorServiceSubImpl();
+            Calculator calcMul = new CalculatorServiceMulImpl();
+            Calculator calcDiv = new CalculatorServiceDivImpl();
+
+            Calculator stubAdd = (Calculator) UnicastRemoteObject.exportObject((Calculator) calcAdd, 0);
+            Calculator stubSub = (Calculator) UnicastRemoteObject.exportObject((Calculator) calcSub, 0);
+            Calculator stubMul = (Calculator) UnicastRemoteObject.exportObject((Calculator) calcMul, 0);
+            Calculator stubDiv = (Calculator) UnicastRemoteObject.exportObject((Calculator) calcDiv, 0);
 
             Registry registry = LocateRegistry.createRegistry(registryPort);
-            registry.rebind("CalculatorService", stub);            
+            registry.rebind("CalculatorAddService", stubAdd);
+            registry.rebind("CalculatorSubService", stubSub);
+            registry.rebind("CalculatorMulService", stubMul);
+            registry.rebind("CalculatorDivService", stubDiv);
 
             System.err.println("Server ready");
         } catch (Exception e) {

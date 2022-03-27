@@ -10,12 +10,15 @@ public class Client {
         try{
 
             Registry registry = LocateRegistry.getRegistry(registryPort);
-            Calculator calc = (Calculator) registry.lookup("CalculatorService");
+            Calculator calcAdd = (Calculator) registry.lookup("CalculatorAddService");
+            Calculator calcSub = (Calculator) registry.lookup("CalculatorSubService");
+            Calculator calcMul = (Calculator) registry.lookup("CalculatorMulService");
+            Calculator calcDiv = (Calculator) registry.lookup("CalculatorDivService");
 
-            System.out.println(calc.add(7,3));
-            System.out.println(calc.sub(7,3));
-            System.out.println(calc.mul(7,3));
-            System.out.println(calc.div(7,3));
+            System.out.println(calcAdd.add(7,3));
+            System.out.println(calcSub.sub(7,3));
+            System.out.println(calcMul.mul(7,3));
+            System.out.println(calcDiv.div(7,3));
             
         } catch (Exception e) {
             System.err.println("Client exception: " + e.toString());
