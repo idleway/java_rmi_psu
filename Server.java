@@ -7,9 +7,8 @@ import java.rmi.server.UnicastRemoteObject;
         
 public class Server{
             
-    public static void main(String args[]) {
-        
-        int registryPort := 2233;
+    public static void main(String args[]) {    
+        int registryPort = 2233;
 
         try {
             Calculator server = new CalculatorServiceImpl();
