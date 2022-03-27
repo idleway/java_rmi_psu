@@ -2,22 +2,22 @@ package calculator;
 
 public class CalculatorServiceAddImpl implements Calculator {     
     @Override
-    public double add(double a, double b){
+    public double add(double a, double b) throws Exception{
         return a + b;
     }
 
     @Override
-    public double sub(double a, double b){
+    public double sub(double a, double b) throws Exception{
         throw new Exception("Not Implemented");
     }
 
     @Override
-    public double mul(double a, double b){
+    public double mul(double a, double b) throws Exception{
         throw new Exception("Not Implemented");
     }
 
     @Override
-    public double div(double a, double b){
+    public double div(double a, double b) throws Exception{
         throw new Exception("Not Implemented");
-    }
+    }    
 }
