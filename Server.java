@@ -9,7 +9,7 @@ public class Server{
             
     public static void main(String args[]) {
         
-        int registryPort = 2233;
+        int registryPort := 2233;
 
         try {
             Calculator server = new CalculatorServiceImpl();
