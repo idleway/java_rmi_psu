@@ -8,16 +8,16 @@ public class CalculatorServiceAddImpl implements Calculator {
 
     @Override
     public double sub(double a, double b){
-        throw new NotImplementedException();
+        throw new Exception("Not Implemented");
     }
 
     @Override
     public double mul(double a, double b){
-        throw new NotImplementedException();
+        throw new Exception("Not Implemented");
     }
 
     @Override
     public double div(double a, double b){
-        throw new NotImplementedException();
+        throw new Exception("Not Implemented");
     }
 }
