@@ -1,4 +1,9 @@
-Сборка сервера - javac calculator/Calculator.java calculator/CalculatorServiceImpl.java calculator/Server.java
-Запуск сервера - java calculator.Server 
-Сборка клиента - javac calculator/Calculator.java calculator/CalculatorServiceImpl.java calculator/Client.java
-Запуск клиента - java calculator.Client
+# Java RMI calculator
+
+## Сборка
+- Сервер: javac calculator/Calculator.java calculator/CalculatorServiceImpl.java calculator/Server.java
+- Клиент: javac calculator/Calculator.java calculator/CalculatorServiceImpl.java calculator/Client.java
+
+## Запуск
+- Сервер: java calculator.Server
+- Клиент: java calculator.Client
