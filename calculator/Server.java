@@ -1,25 +1,26 @@
 package calculator;
         
+import java.math.RoundingMode;
 import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;
-import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-        
+
 public class Server{
-            
     public static void main(String args[]) {    
         int registryPort = 2233;
 
         try {
-            Calculator calcAdd = new CalculatorServiceAddImpl();
-            Calculator calcSub = new CalculatorServiceSubImpl();
-            Calculator calcMul = new CalculatorServiceMulImpl();
-            Calculator calcDiv = new CalculatorServiceDivImpl();
+            RoundingMode rm = RoundingMode.HALF_UP;  // Режим округления по правилам математики
 
-            Calculator stubAdd = (Calculator) UnicastRemoteObject.exportObject((Calculator) calcAdd, 0);
-            Calculator stubSub = (Calculator) UnicastRemoteObject.exportObject((Calculator) calcSub, 0);
-            Calculator stubMul = (Calculator) UnicastRemoteObject.exportObject((Calculator) calcMul, 0);
-            Calculator stubDiv = (Calculator) UnicastRemoteObject.exportObject((Calculator) calcDiv, 0);
+            OperationService calcAdd = new OperationServiceServiceAddImpl();
+            OperationService calcSub = new OperationServiceServiceSubImpl();
+            OperationService calcMul = new OperationServiceServiceMulImpl();
+            OperationService calcDiv = new OperationServiceServiceDivImpl(rm);
+
+            OperationService stubAdd = (OperationService) UnicastRemoteObject.exportObject((OperationService) calcAdd, 0);
+            OperationService stubSub = (OperationService) UnicastRemoteObject.exportObject((OperationService) calcSub, 0);
+            OperationService stubMul = (OperationService) UnicastRemoteObject.exportObject((OperationService) calcMul, 0);
+            OperationService stubDiv = (OperationService) UnicastRemoteObject.exportObject((OperationService) calcDiv, 0);
 
             Registry registry = LocateRegistry.createRegistry(registryPort);
             registry.rebind("CalculatorAddService", stubAdd);
@@ -29,7 +30,7 @@ public class Server{
 
             System.err.println("Server ready");
         } catch (Exception e) {
-            System.err.println("Server exception: " + e.toString());
+            System.err.println("Server exception: " + e);
             e.printStackTrace();
         }
     }
