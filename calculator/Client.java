@@ -4,13 +4,23 @@ import java.math.BigDecimal;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Stack;
+import java.util.Scanner;
 
 public class Client {    
 
     public static void main(String[] args) throws Exception {
         RPNParser parser = new RPNParser();
-        String expr = "1/0";
-        Validator validator = new Validator();
+		Validator validator = new Validator();	
+		Scanner in = new Scanner(System.in);	
+		
+        String expr = in.nextLine();	
+		expr = PrepareData(expr);
+		while( !validator.IsValid(expr) ){
+			System.out.print("Try again");
+			expr = in.nextLine();	
+			expr = PrepareData(expr);
+		}       
+	
         OperationService calcAdd;
         OperationService calcSub;
         OperationService calcMul;
@@ -67,4 +77,10 @@ public class Client {
             System.out.println(operands.pop());  // Результат на вершине стэка
         }
     }
+	
+	private String PrepareData(String expr){
+		expr = expr.replaceAll(" ", "");
+		expr = expr.replaceAll("+-", "-");
+		return expr;
+	}
 }
