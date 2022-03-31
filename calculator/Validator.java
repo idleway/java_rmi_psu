@@ -31,7 +31,7 @@ public class Validator {
     private boolean IsCorrectOrder(String oldLine){
         String line = oldLine.replaceAll(" ", "");
         String nums="0123456789";
-        String operations ="+-*/";
+        String operations ="+*/";
         if ((operations.contains(Character.toString(line.charAt(0))) && line.charAt(0) != '-') || operations.contains(Character.toString(line.charAt(line.length()-1))) ) return false;
         for(int i=1; i<line.length()-1;i++){
             String elem = Character.toString(line.charAt(i));
