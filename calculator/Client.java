@@ -16,7 +16,7 @@ public class Client {
         String expr = in.nextLine();	
 		expr = PrepareData(expr);
 		while( !validator.IsValid(expr) ){
-			System.out.print("Try again");
+			System.out.print("Try again \n");
 			expr = in.nextLine();	
 			expr = PrepareData(expr);
 		}       
