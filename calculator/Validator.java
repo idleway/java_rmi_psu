@@ -37,8 +37,8 @@ public class Validator {
             String elem = Character.toString(line.charAt(i));
             String prev = Character.toString(line.charAt(i-1));
             String next = Character.toString(line.charAt(i+1));
-            if(operations.contains(elem) && (operations.contains(prev) || prev.charAt(0) == '(')) return false;
-            if(operations.contains(elem) && (operations.contains(next) || next.charAt(0) == ')')) return false;
+            if(operations.contains(elem) && prev.charAt(0) == '-' && (operations.contains(prev) || prev.charAt(0) == '(')) return false;
+            if(operations.contains(elem) && next.charAt(0) != '-' && (operations.contains(next) || next.charAt(0) == ')')) return false;
             //if(operations.contains(elem) && ( !nums.contains(prev) || prev.charAt(0) != ')')  && ( !nums.contains(next) || next.charAt(0) != '(') ) return false;
         }
         return true;
