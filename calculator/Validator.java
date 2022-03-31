@@ -3,7 +3,7 @@ package calculator;
 public class Validator {
 
 	public boolean IsValid(String line){
-        return IsValidSymbols(line) && IsCorrectBrackets(line) && line.length()>3 && IsCorrectOrder(line);
+        return IsValidSymbols(line) && IsCorrectBrackets(line) && line.length()>0 && IsCorrectOrder(line);
     }
 	
 	private boolean IsValidSymbols(String line){
