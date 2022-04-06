@@ -1,5 +1,6 @@
 package calculator;
         
+import java.math.MathContext;
 import java.math.RoundingMode;
 import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;
@@ -11,16 +12,17 @@ public class Server{
 
         try {
             RoundingMode rm = RoundingMode.HALF_UP;  // Режим округления по правилам математики
+            MathContext mc = new MathContext(10, rm);
 
-            OperationService calcAdd = new OperationServiceServiceAddImpl();
-            OperationService calcSub = new OperationServiceServiceSubImpl();
-            OperationService calcMul = new OperationServiceServiceMulImpl();
-            OperationService calcDiv = new OperationServiceServiceDivImpl(rm);
+            OperationService calcAdd = new OperationServiceServiceAddImpl(mc);
+            OperationService calcSub = new OperationServiceServiceSubImpl(mc);
+            OperationService calcMul = new OperationServiceServiceMulImpl(mc);
+            OperationService calcDiv = new OperationServiceServiceDivImpl(mc);
 
-            OperationService stubAdd = (OperationService) UnicastRemoteObject.exportObject((OperationService) calcAdd, 0);
-            OperationService stubSub = (OperationService) UnicastRemoteObject.exportObject((OperationService) calcSub, 0);
-            OperationService stubMul = (OperationService) UnicastRemoteObject.exportObject((OperationService) calcMul, 0);
-            OperationService stubDiv = (OperationService) UnicastRemoteObject.exportObject((OperationService) calcDiv, 0);
+            OperationService stubAdd = (OperationService) UnicastRemoteObject.exportObject(calcAdd, 0);
+            OperationService stubSub = (OperationService) UnicastRemoteObject.exportObject(calcSub, 0);
+            OperationService stubMul = (OperationService) UnicastRemoteObject.exportObject(calcMul, 0);
+            OperationService stubDiv = (OperationService) UnicastRemoteObject.exportObject(calcDiv, 0);
 
             Registry registry = LocateRegistry.createRegistry(registryPort);
             registry.rebind("CalculatorAddService", stubAdd);

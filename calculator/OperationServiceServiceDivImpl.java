@@ -1,17 +1,17 @@
 package calculator;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
+import java.math.MathContext;
 
 public class OperationServiceServiceDivImpl implements OperationService {
-    private final RoundingMode rm;
+    private final MathContext mc;
 
-    public OperationServiceServiceDivImpl(RoundingMode rm) {
-        this.rm = rm;
+    public OperationServiceServiceDivImpl(MathContext mc) {
+        this.mc = mc;
     }
 
     @Override
     public BigDecimal calcOp(BigDecimal a, BigDecimal b) throws Exception{
-        return a.divide(b, rm);
+        return a.divide(b, mc);
     }    
 }

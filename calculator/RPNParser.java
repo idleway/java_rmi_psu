@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Stack;
 import java.util.EmptyStackException;
 import java.math.BigDecimal;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RPNParser {
     private static final char[] operatorTokens = {'*', '/', '-', '+'};
@@ -46,12 +48,46 @@ public class RPNParser {
         return 9999;
     }
 
+    private static String removeRedundantParentheses(String source) {
+        Pattern pattern = Pattern.compile("\\(-+\\d*\\)");
+        Matcher matcher = pattern.matcher(source);
+        StringBuilder builder = new StringBuilder(source.length());
+
+        while (matcher.find()) {
+            int s = matcher.start();
+            int e = matcher.end();
+            builder.append(source, 0, s);
+            builder.append(source, s + 1, e-1);
+            if(source.length() > e + 1)
+                builder.append(source.substring(e+1));
+            source = builder.toString();
+            builder.setLength(0);
+        }
+        return source;
+    }
+
+    private static String replaceAllDoubleMinus(String source) {
+        source = source.replaceAll("--", "+");
+
+        while (source.contains("--"))
+            source = source.replaceAll("--", "+");
+
+        return source;
+    }
+
+    private static String removeUnaryPlus(String source) {
+        return source.replaceAll("^\\+|\\(\\+", "");
+    }
+
     private List<String> splitExpr(String expression) {
+        var prepared = removeRedundantParentheses(expression);
+        prepared = replaceAllDoubleMinus(prepared);
+        prepared = removeUnaryPlus(prepared);
         StringBuilder stringBuilder = new StringBuilder(expression.length());
         List<String> output = new ArrayList<>();
         boolean minusMayBeUnary = true;
 
-        for (char c: expression.toCharArray()) {
+        for (char c: prepared.toCharArray()) {
             if(c == '(')
             {
                 output.add(String.valueOf(c));

@@ -1,19 +1,21 @@
 package calculator;
 
+import java.util.*;
+
 public class Validator {
 
 	public boolean IsValid(String line){
         return IsValidSymbols(line) && IsCorrectBrackets(line) && line.length()>0 && IsCorrectOrder(line);
     }
-	
+
 	private boolean IsValidSymbols(String line){
-        String correctLine = "1234567890.()*+-/";
+        String correctLine = "1234567890()*+-/ ";
         boolean result = true;
         for(int i=0;i<line.length(); i++)
             result = result & correctLine.contains(Character.toString(line.charAt(i)));
         return result;
     }
-    
+
     private boolean IsCorrectBrackets(String line){
         Stack stack= new Stack();
         for(int i=0; i<line.length();i++){
@@ -27,7 +29,7 @@ public class Validator {
         }
         return stack.empty();
     }
-    
+
     private boolean IsCorrectOrder(String oldLine){
         String line = oldLine.replaceAll(" ", "");
         String nums="0123456789";
@@ -39,9 +41,9 @@ public class Validator {
             String next = Character.toString(line.charAt(i+1));
             if(operations.contains(elem) && prev.charAt(0) == '-' && (operations.contains(prev) || prev.charAt(0) == '(')) return false;
             if(operations.contains(elem) && next.charAt(0) != '-' && (operations.contains(next) || next.charAt(0) == ')')) return false;
+            if((operations.contains(elem) || elem.charAt(0) == '-') && next.charAt(0) == ')')  return false;
             //if(operations.contains(elem) && ( !nums.contains(prev) || prev.charAt(0) != ')')  && ( !nums.contains(next) || next.charAt(0) != '(') ) return false;
         }
         return true;
-    }    
-   
+    }
 }
